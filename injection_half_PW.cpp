@@ -57,9 +57,9 @@ int main(){
                     outside_reload.stop();
                     break;
             }
-            if(state == 1){//for injection
-                inside.move_p1(0.02,shotpower);
-                outside.move_p1(0.02,shotpower);
+            if(state == 1){
+                inside.move_p1(0.02, shotpower);
+                outside.move_p1(0.02, shotpower);
             }
             else{
                 inside.stop();
