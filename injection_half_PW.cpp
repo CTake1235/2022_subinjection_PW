@@ -25,7 +25,7 @@ int main(){
     static char data; 
     float shotpower = 0.9;
     float reloadpower = 0.7;
-    bool state = false;
+    bool state = 0;
     while (true) {
         res = raspi.read(&data,4);
         if(res == 1){
@@ -39,8 +39,7 @@ int main(){
                     }
                     break;
                 case 9://maru,inject
-                    inside.move_p1(0.02,shotpower);
-                    outside.move_p1(0.02,shotpower);
+                    state = 1;
                     break;
                 case 10://sikaku,reload back
                     inside_reload.move_p1(0.02,reloadpower);
@@ -50,17 +49,15 @@ int main(){
                     inside_reload.move_p2(0.02,reloadpower);
                     outside_reload.move_p2(0.02,reloadpower);
                     break;
-                case 12:
-                    state = false;
+                case 12://batu,stop
+                    state = 0;
                     break;
                 default:
-                    inside.stop();
-                    outside.stop();
                     inside_reload.stop();
                     outside_reload.stop();
                     break;
             }
-            if(state == true){//for injection
+            if(state == 1){//for injection
                 inside.move_p1(0.02,shotpower);
                 outside.move_p1(0.02,shotpower);
             }
