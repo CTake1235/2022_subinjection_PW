@@ -27,7 +27,6 @@ int main(){
     float reloadpower = 0.7;
     bool state = false;
     while (true) {
-        printf("shot:%lf,reload:%lf\n",shotpower,reloadpower);
         res = raspi.read(&data,4);
         if(res == 1){
             switch (int(data)){
@@ -48,8 +47,8 @@ int main(){
                     outside_reload.move_p1(0.02,reloadpower);
                     break;
                 case 11://sankaku,reload go
-                    inside_reload.move_p2(0.02,0.5);
-                    outside_reload.move_p2(0.02,0.5);
+                    inside_reload.move_p2(0.02,reloadpower);
+                    outside_reload.move_p2(0.02,reloadpower);
                     break;
                 case 12:
                     state = false;
@@ -61,14 +60,14 @@ int main(){
                     outside_reload.stop();
                     break;
             }
-            /*if(state == true){//for injection
+            if(state == true){//for injection
                 inside.move_p1(0.02,shotpower);
                 outside.move_p1(0.02,shotpower);
             }
             else{
                 inside.stop();
                 outside.stop();
-            }*/
+            }
         }
         else{
             inside.stop();
