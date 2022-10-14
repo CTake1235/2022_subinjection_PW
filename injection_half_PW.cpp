@@ -29,14 +29,6 @@ int main(){
     while (true) {
         res = raspi.read(&data,4);
         if(res == 1){
-            if(state == 1){
-                inside.move_p1(0.02, shotpower);
-                outside.move_p1(0.02, shotpower);
-            }
-            else{
-                inside.stop();
-                outside.stop();
-            }
             switch (int(data)){
                 case 7://L1,open wing
                     send(wingPWadd,0xff);
@@ -65,6 +57,14 @@ int main(){
                     inside_reload.stop();
                     outside_reload.stop();
                     break;
+            }
+            if(state == 1){
+                inside.move_p1(0.02, shotpower);
+                outside.move_p1(0.02, shotpower);
+            }
+            else{
+                inside.stop();
+                outside.stop();
             }
         }
         else{
