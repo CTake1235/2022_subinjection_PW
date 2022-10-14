@@ -49,8 +49,9 @@ int main(){
                     inside_reload.move_p2(0.02,reloadpower);
                     outside_reload.move_p2(0.02,reloadpower);
                     break;
-                case 12://batu,stop
-                    state = 0;
+                case 12://batu,stop        
+                    inside.stop();
+                    outside.stop();
                     break;
                 default:
                     inside_reload.stop();
