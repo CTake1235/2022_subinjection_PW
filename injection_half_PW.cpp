@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include "sonMD.h"
-#include <cstdio>
 #include "time.h"
 
 #define wingPWadd 0x58
