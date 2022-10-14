@@ -56,15 +56,15 @@ int main(){
                 default:
                     inside_reload.stop();
                     outside_reload.stop();
+                    if(state == 1){
+                    inside.move_p1(0.02, shotpower);
+                    outside.move_p1(0.02, shotpower);
+                    }
+                    else{
+                        inside.stop();
+                        outside.stop();
+                    }
                     break;
-            }
-            if(state == 1){
-                inside.move_p1(0.02, shotpower);
-                outside.move_p1(0.02, shotpower);
-            }
-            else{
-                inside.stop();
-                outside.stop();
             }
         }
         else{
