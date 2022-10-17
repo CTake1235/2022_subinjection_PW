@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include "sonMD.h"
-#include "time.h"
 
 #define wingPWadd 0x58
 
@@ -8,8 +7,8 @@ UnbufferedSerial raspi(PA_0,PA_1,9600);
 
 I2C              i2c(PB_9,PB_8);
 
-sonMD            outside(PA_11,PB_2,0.00015);
-sonMD            inside(PA_10,PB_5,0.00015);
+sonMD            inside(PA_11,PB_2,0.00015);
+sonMD            outside(PA_10,PB_5,0.00015);
 sonMD            inside_reload(PA_9,PA_8,0.00015);
 sonMD            outside_reload(PB_6,PA_6,0.00015);    
 
@@ -19,10 +18,9 @@ void send(char add, char dat);
 
 int main(){
     raspi.format(8,BufferedSerial::None,1);
-    clock_t start,end;
     int res,time;
     static char data; 
-    float shotpower = 0.9;
+    float shotpower = 0.6;
     float reloadpower = 0.7;
     bool state = 0;
     while (true) {
@@ -33,9 +31,7 @@ int main(){
                     send(wingPWadd,0xff);
                     break;
                 case 8://L2,close wing
-                    if(sitalimitswitch == 0){
-                        send(wingPWadd,0x00);
-                    }
+                    send(wingPWadd,0x00);
                     break;
                 case 9://maru,inject
                     state = 1;
@@ -48,13 +44,13 @@ int main(){
                     inside_reload.move_p2(0.02,reloadpower);
                     outside_reload.move_p2(0.02,reloadpower);
                     break;
-                case 12://batu,stop        
-                    inside.stop();
-                    outside.stop();
+                case 12://batu,stop
+                    state = 0;
                     break;
                 default:
                     inside_reload.stop();
                     outside_reload.stop();
+                    send(wingPWadd,0x80);
                     break;
             }
             if(state == 1){
